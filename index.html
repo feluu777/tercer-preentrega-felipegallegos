@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Calculadora de Cuota Mensual</title>
+</head>
+
+<body>
+    <div class="calculadora">
+        <h1>Calculadora de Cuota Mensual</h1>
+        <label for="total">Monto total:</label>
+        <input type="number" id="total" value="0">
+        <br>
+        <label for="meses">Número de meses:</label>
+        <input type="number" id="meses" value="1">
+        <br>
+        <button id="calcular">Calcular</button>
+        <br>
+        <p id="resultado"></p>
+        <div>
+
+            <h2>Historial de cálculos:</h2>
+            <table id="historial">
+                <thead>
+                    <tr>
+                        <th>Índice</th>
+                        <th>Total</th>
+                        <th>Meses</th>
+                        <th>Cuota Mensual</th>
+                    </tr>
+                </thead>
+                <tbody id="historial-body">
+                </tbody>
+            </table>
+
+            <script src="main.js"></script>
+</body>
+
+</html>
