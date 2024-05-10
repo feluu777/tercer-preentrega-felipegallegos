@@ -20,9 +20,6 @@ function compraAñadida() {
     let total = parseInt(document.getElementById('total').value);
     let meses = parseInt(document.getElementById('meses').value);
 
-    if (total < 30000) {
-        total *= 1.1;
-    }
 
     let cuotaMensual = total / meses;
     let resultado = document.getElementById('resultado');
