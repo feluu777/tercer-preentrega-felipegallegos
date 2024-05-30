@@ -9,6 +9,7 @@ body {
     border: 1px solid black;
     border-radius: 5px;
     background-color: bisque;
+    width: 400px;
 }
 
 input[type="number"],

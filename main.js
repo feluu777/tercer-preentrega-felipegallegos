@@ -1,5 +1,15 @@
-
 let historialCalculos = [];
+
+
+function verificarNumeros(total, meses) {
+    return new Promise((resolve, reject) => {
+        if (!isNaN(total) && !isNaN(meses) && total > 0 && meses > 0) {
+            resolve();
+        } else {
+            reject("Por favor, ingrese montos válidos y mayores que cero.");
+        }
+    });
+}
 
 
 function cargarHistorialDesdeLocalStorage() {
@@ -10,8 +20,8 @@ function cargarHistorialDesdeLocalStorage() {
     }
 }
 
-
 cargarHistorialDesdeLocalStorage();
+
 
 const calcular = document.getElementById('calcular');
 calcular.addEventListener('click', compraAñadida);
@@ -21,17 +31,28 @@ function compraAñadida() {
     let meses = parseInt(document.getElementById('meses').value);
 
 
-    let cuotaMensual = total / meses;
-    let resultado = document.getElementById('resultado');
-    resultado.innerHTML = "La cuota mensual es: $" + cuotaMensual.toFixed(2);
+    verificarNumeros(total, meses)
+        .then(() => {
 
-    // Agregar el cálculo al historial
-    historialCalculos.push({ total: total, meses: meses, cuotaMensual: cuotaMensual });
-    actualizarHistorial();
+            let cuotaMensual = total / meses;
+            let resultado = document.getElementById('resultado');
+            resultado.innerHTML = "La cuota mensual es: $" + cuotaMensual.toFixed(2);
 
-    // Guardar el historial en localStorage
-    localStorage.setItem('historialCalculos', JSON.stringify(historialCalculos));
-};
+            historialCalculos.push({ total: total, meses: meses, cuotaMensual: cuotaMensual });
+            actualizarHistorial();
+
+            localStorage.setItem('historialCalculos', JSON.stringify(historialCalculos));
+        })
+        .catch((error) => {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error
+            });
+        });
+}
+
 
 function actualizarHistorial() {
     const historialBody = document.getElementById('historial-body');
@@ -43,7 +64,7 @@ function actualizarHistorial() {
             <td>${index + 1}</td>
             <td>$${calculo.total}</td>
             <td>${calculo.meses}</td>
-            <td>$${calculo.cuotaMensual.toFixed(2)}</td>
+            <td>$${calculo.cuotaMensual}</td>
         `;
         historialBody.appendChild(row);
     });
